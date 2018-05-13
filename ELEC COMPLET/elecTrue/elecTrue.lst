@@ -1,0 +1,322 @@
+CCS PCH C Compiler, Version 4.023, 11770               13-mai-18 09:57
+
+               Filename: C:\Users\JULIEN\Desktop\cours\ElectroProj\zlkadmlkaz\elecTrue\elecTrue.lst
+
+               ROM used: 1272 bytes (4%)
+                         Largest free fragment is 31496
+               RAM used: 14 (1%) at main() level
+                         38 (2%) worst case
+               Stack:    2 locations
+
+*
+0000:  GOTO   03C2
+.................... #include "C:\Users\JULIEN\Desktop\cours\ElectroProj\zlkadmlkaz\elecTrue\elecTrue.h" 
+.................... #include <18F458.h> 
+.................... //////// Standard Header file for the PIC18F458 device //////////////// 
+.................... #device PIC18F458 
+.................... #list 
+....................  
+.................... #device adc=16 
+....................  
+.................... #FUSES NOWDT                    //No Watch Dog Timer 
+.................... #FUSES WDT128                   //Watch Dog Timer uses 1:128 Postscale 
+.................... #FUSES RC_IO                    //Resistor/Capacitor Osc 
+.................... #FUSES NOOSCSEN                 //Oscillator switching is disabled, main oscillator is source 
+.................... #FUSES NOPUT                    //No Power Up Timer 
+.................... #FUSES NOBROWNOUT               //No brownout reset 
+.................... //#FUSES BORV20                   //Brownout reset at 2.0V 
+.................... #FUSES STVREN                   //Stack full/underflow will cause reset 
+.................... #FUSES NOLVP                    //No low voltage prgming, B3(PIC16) or B5(PIC18) used for I/O 
+.................... #FUSES NODEBUG                  //No Debug mode for ICD 
+.................... #FUSES NOPROTECT                //Code not protected from reading 
+.................... #FUSES NOCPB                    //No Boot Block code protection 
+.................... #FUSES NOCPD                    //No EE protection 
+.................... #FUSES NOWRT                    //Program memory not write protected 
+.................... #FUSES NOWRTC                   //configuration not registers write protected 
+.................... #FUSES NOWRTB                   //Boot block not write protected 
+.................... #FUSES NOWRTD                   //Data EEPROM not write protected 
+.................... #FUSES NOEBTR                   //Memory not protected from table reads 
+.................... #FUSES NOEBTRB                  //Boot block not protected from table reads 
+....................  
+.................... #use delay(clock=20000000) 
+039A:  CLRF   FEA
+039C:  MOVLW  0E
+039E:  MOVWF  FE9
+03A0:  MOVF   FEF,W
+03A2:  BZ    03BE
+03A4:  MOVLW  06
+03A6:  MOVWF  01
+03A8:  CLRF   00
+03AA:  DECFSZ 00,F
+03AC:  BRA    03AA
+03AE:  DECFSZ 01,F
+03B0:  BRA    03A8
+03B2:  MOVLW  7B
+03B4:  MOVWF  00
+03B6:  DECFSZ 00,F
+03B8:  BRA    03B6
+03BA:  DECFSZ FEF,F
+03BC:  BRA    03A4
+03BE:  GOTO   0496 (RETURN)
+.................... #use rs232(baud=9600,parity=N,xmit=PIN_C6,rcv=PIN_C7,bits=8,restart_wdt) 
+....................  
+....................  
+....................  
+.................... int32 dist(void); 
+.................... int32 limite = 0; 
+.................... int32 distance; 
+.................... void main(){ 
+03C2:  CLRF   FF8
+03C4:  BCF    FD0.7
+03C6:  CLRF   FEA
+03C8:  CLRF   FE9
+03CA:  MOVLW  81
+03CC:  MOVWF  FAF
+03CE:  MOVLW  A6
+03D0:  MOVWF  FAC
+03D2:  MOVLW  90
+03D4:  MOVWF  FAB
+03D6:  BSF    FC1.0
+03D8:  BSF    FC1.1
+03DA:  BSF    FC1.2
+03DC:  BCF    FC1.3
+03DE:  MOVLW  07
+03E0:  MOVWF  FB4
+03E2:  CLRF   05
+03E4:  CLRF   06
+03E6:  CLRF   07
+03E8:  CLRF   08
+....................    printf("Bienvenu dans la simulation proetus\n"); 
+03EA:  CLRF   0D
+03EC:  MOVF   0D,W
+03EE:  RCALL  0004
+03F0:  INCF   0D,F
+03F2:  MOVWF  00
+03F4:  CLRWDT
+03F6:  BTFSS  F9E.4
+03F8:  BRA    03F4
+03FA:  MOVWF  FAD
+03FC:  MOVLW  24
+03FE:  SUBWF  0D,W
+0400:  BNZ   03EC
+....................    setup_timer_0(RTCC_INTERNAL|RTCC_DIV_8|RTCC_8_BIT); 
+0402:  MOVLW  C2
+0404:  MOVWF  FD5
+....................    setup_timer_1(T1_INTERNAL|T1_DIV_BY_1); 
+0406:  MOVLW  85
+0408:  MOVWF  FCD
+....................    enable_interrupts(GLOBAL); 
+040A:  MOVLW  C0
+040C:  IORWF  FF2,F
+....................    setup_low_volt_detect(FALSE); 
+040E:  CLRF   FD2
+....................    enable_interrupts(INT_RDA); 
+0410:  BSF    F9D.5
+....................    enable_interrupts(GLOBAL); 
+0412:  IORWF  FF2,F
+....................    distance = 0; 
+0414:  CLRF   0C
+0416:  CLRF   0B
+0418:  CLRF   0A
+041A:  CLRF   09
+....................    while(true){ 
+....................       distance = dist(); 
+041C:  RCALL  01CC
+041E:  MOVFF  03,0C
+0422:  MOVFF  02,0B
+0426:  MOVFF  01,0A
+042A:  MOVFF  00,09
+....................       if(distance < limite){ 
+042E:  MOVF   0C,W
+0430:  SUBWF  08,W
+0432:  BNC   0484
+0434:  BNZ   044C
+0436:  MOVF   0B,W
+0438:  SUBWF  07,W
+043A:  BNC   0484
+043C:  BNZ   044C
+043E:  MOVF   0A,W
+0440:  SUBWF  06,W
+0442:  BNC   0484
+0444:  BNZ   044C
+0446:  MOVF   05,W
+0448:  SUBWF  09,W
+044A:  BC    0484
+....................          output_high(PIN_B0); 
+044C:  BCF    F93.0
+044E:  BSF    F8A.0
+....................          output_low(PIN_B1); 
+0450:  BCF    F93.1
+0452:  BCF    F8A.1
+....................          printf("distance trop petite"); 
+0454:  CLRF   0D
+0456:  MOVF   0D,W
+0458:  RCALL  003A
+045A:  INCF   0D,F
+045C:  MOVWF  00
+045E:  CLRWDT
+0460:  BTFSS  F9E.4
+0462:  BRA    045E
+0464:  MOVWF  FAD
+0466:  MOVLW  14
+0468:  SUBWF  0D,W
+046A:  BNZ   0456
+....................          printf("%lu", distance); 
+046C:  MOVLW  41
+046E:  MOVWF  FE9
+0470:  MOVFF  0C,10
+0474:  MOVFF  0B,0F
+0478:  MOVFF  0A,0E
+047C:  MOVFF  09,0D
+0480:  RCALL  02EC
+....................       } else { 
+0482:  BRA    04F4
+....................          output_high(PIN_B1); 
+0484:  BCF    F93.1
+0486:  BSF    F8A.1
+....................          output_low(PIN_B0); 
+0488:  BCF    F93.0
+048A:  BCF    F8A.0
+....................          do{ 
+....................             //output_toggle(PIN_B0); 
+....................             delay_ms(1000); 
+048C:  MOVLW  04
+048E:  MOVWF  0D
+0490:  MOVLW  FA
+0492:  MOVWF  0E
+0494:  BRA    039A
+0496:  DECFSZ 0D,F
+0498:  BRA    0490
+....................             distance = dist(); 
+049A:  RCALL  01CC
+049C:  MOVFF  03,0C
+04A0:  MOVFF  02,0B
+04A4:  MOVFF  01,0A
+04A8:  MOVFF  00,09
+....................             printf("%lu\r\n",distance); 
+04AC:  MOVLW  41
+04AE:  MOVWF  FE9
+04B0:  MOVFF  0C,10
+04B4:  MOVFF  0B,0F
+04B8:  MOVFF  0A,0E
+04BC:  MOVFF  09,0D
+04C0:  RCALL  02EC
+04C2:  MOVLW  0D
+04C4:  CLRWDT
+04C6:  BTFSS  F9E.4
+04C8:  BRA    04C4
+04CA:  MOVWF  FAD
+04CC:  MOVLW  0A
+04CE:  CLRWDT
+04D0:  BTFSS  F9E.4
+04D2:  BRA    04CE
+04D4:  MOVWF  FAD
+....................          }while(distance>limite); 
+04D6:  MOVF   08,W
+04D8:  SUBWF  0C,W
+04DA:  BNC   04F4
+04DC:  BNZ   048C
+04DE:  MOVF   07,W
+04E0:  SUBWF  0B,W
+04E2:  BNC   04F4
+04E4:  BNZ   048C
+04E6:  MOVF   06,W
+04E8:  SUBWF  0A,W
+04EA:  BNC   04F4
+04EC:  BNZ   048C
+04EE:  MOVF   09,W
+04F0:  SUBWF  05,W
+04F2:  BNC   048C
+....................       } 
+....................    } 
+04F4:  BRA    041C
+.................... } 
+....................  
+.................... int32 dist(){ 
+....................    float time=0; 
+*
+01CC:  CLRF   0D
+01CE:  CLRF   0E
+01D0:  CLRF   0F
+01D2:  CLRF   10
+*
+04F6:  SLEEP 
+....................    int32 distance=0; 
+*
+01D4:  CLRF   11
+01D6:  CLRF   12
+01D8:  CLRF   13
+01DA:  CLRF   14
+....................    output_high(pin_b7);  
+01DC:  BCF    F93.7
+01DE:  BSF    F8A.7
+....................    delay_us(10); 
+01E0:  MOVLW  10
+01E2:  MOVWF  00
+01E4:  DECFSZ 00,F
+01E6:  BRA    01E4
+01E8:  NOP   
+....................    output_low(pin_b7); 
+01EA:  BCF    F93.7
+01EC:  BCF    F8A.7
+....................    while(!input(PIN_b3)); 
+01EE:  BSF    F93.3
+01F0:  BTFSS  F81.3
+01F2:  BRA    01EE
+....................    set_timer1(0); 
+01F4:  CLRF   FCF
+01F6:  CLRF   FCE
+....................    while(input(PIN_b3)); 
+01F8:  BSF    F93.3
+01FA:  BTFSC  F81.3
+01FC:  BRA    01F8
+....................    time=get_timer1(); 
+01FE:  MOVF   FCE,W
+0200:  MOVFF  FCF,03
+0204:  MOVWF  15
+0206:  MOVFF  FCF,16
+020A:  BRA    0060
+020C:  MOVFF  03,10
+0210:  MOVFF  02,0F
+0214:  MOVFF  01,0E
+0218:  MOVFF  00,0D
+....................    distance = time* 0.00344; 
+021C:  MOVFF  10,18
+0220:  MOVFF  0F,17
+0224:  MOVFF  0E,16
+0228:  MOVFF  0D,15
+022C:  MOVLW  9F
+022E:  MOVWF  1C
+0230:  MOVLW  71
+0232:  MOVWF  1B
+0234:  MOVLW  61
+0236:  MOVWF  1A
+0238:  MOVLW  76
+023A:  MOVWF  19
+023C:  BRA    0098
+023E:  MOVFF  03,18
+0242:  MOVFF  02,17
+0246:  MOVFF  01,16
+024A:  MOVFF  00,15
+024E:  BRA    018C
+0250:  MOVFF  03,14
+0254:  MOVFF  02,13
+0258:  MOVFF  01,12
+025C:  MOVFF  00,11
+....................    return distance; 
+0260:  MOVFF  11,00
+0264:  MOVFF  12,01
+0268:  MOVFF  13,02
+026C:  MOVFF  14,03
+.................... } 
+0270:  RETLW  00
+....................  
+
+Configuration Fuses:
+   Word  1: 2700   RC_IO NOOSCSEN
+   Word  2: 0E0D   NOBROWNOUT WDT128 NOWDT BORV20 NOPUT
+   Word  3: 0000  
+   Word  4: 0081   STVREN NODEBUG NOLVP
+   Word  5: C00F   NOPROTECT NOCPD NOCPB
+   Word  6: E00F   NOWRT NOWRTD NOWRTB NOWRTC
+   Word  7: 400F   NOEBTR NOEBTRB

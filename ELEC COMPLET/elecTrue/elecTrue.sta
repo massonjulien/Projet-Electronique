@@ -1,0 +1,65 @@
+
+ROM used: 1272 (4%)
+          1272 (4%) including unused fragments
+
+          3 Average locations per line
+          35 Average locations per statement
+
+RAM used: 14 (1%) at main() level
+          38 (2%) worst case
+
+Stack used: 2 worst case (out of 31 total available)
+
+Lines Stmts  %   Files
+----- ----- ---  -----
+   49    36 100  elecTrue.c
+   27     0   0  elecTrue.h
+  389     0   0  ..\..\..\..\..\..\..\Program Files (x86)\PICC\devices\18F458.h
+----- -----
+  465    36 Total
+
+Page ROM  %  RAM   Vol Diff  Functions:
+---- --- --- ---   --- ----  ----------
+0     40   2   1             @delay_ms1
+0    310  12   1   629  5.6  main
+0     54   2   0             @const56
+0     38   1   0             @const57
+0    122   5  13             @DIV3232
+0    174   7  12             @PRINTF_L32U_9600_31766_31767
+0    166   7   8   282  3.6  dist
+0     56   2   2             @ITOF
+0    244  10  11             @MULFF
+0     64   3   5             @FTOSD
+
+Program metrics:
+    Functions               2
+    Statements              36
+    Comments                88
+    Volume (V)              1079
+    Difficilty (D)          8.3
+    Effort to implement (E) 8990
+    Time to implement (T)   8 minutes
+    Est Delivered Bugs (B)  0
+    Cyclomatic Complexity   2
+    Maintainability (MI)    54
+
+ Segment     Used  Free
+-----------  ----  ----
+00000-00002     4  0  
+00004-07FFE  1268  31496  
+
+
+
+THE FOLLOWING IS TEMPORARY FOR DIAGNOSTIC USE ONLY:
+
+    n1    n2    N1    N2   v(G)
+     0     1     0     0     0    @delay_ms1
+    12    49    60    46     2    main
+     0     1     0     0     0    @const56
+     0     1     0     0     0    @const57
+     0     1     0     0     0    @DIV3232
+     0     1     0     0     0    @PRINTF_L32U_9600_31766_31767
+     8    27    31    24     0    dist
+     0     1     0     0     0    @ITOF
+     0     1     0     0     0    @MULFF
+     0     1     0     0     0    @FTOSD

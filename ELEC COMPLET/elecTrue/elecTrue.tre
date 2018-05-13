@@ -1,0 +1,20 @@
+ÀÄelecTrue
+   ÀÄmain  0/310  Ram=1
+      ÃÄ??0??
+      ÃÄ@const56  0/54  Ram=0
+      ÃÄdist  0/166  Ram=8
+      ³  ÃÄ@ITOF  0/56  Ram=2
+      ³  ÃÄ@MULFF  0/244  Ram=11
+      ³  ÀÄ@FTOSD  0/64  Ram=5
+      ÃÄ@const57  0/38  Ram=0
+      ÃÄ@PRINTF_L32U_9600_31766_31767  0/174  Ram=12
+      ³  ÃÄ@DIV3232  0/122  Ram=13
+      ³  ÀÄ@DIV3232  0/122  Ram=13
+      ÃÄ@delay_ms1  0/40  Ram=1
+      ÃÄdist  0/166  Ram=8
+      ³  ÃÄ@ITOF  0/56  Ram=2
+      ³  ÃÄ@MULFF  0/244  Ram=11
+      ³  ÀÄ@FTOSD  0/64  Ram=5
+      ÀÄ@PRINTF_L32U_9600_31766_31767  0/174  Ram=12
+         ÃÄ@DIV3232  0/122  Ram=13
+         ÀÄ@DIV3232  0/122  Ram=13
